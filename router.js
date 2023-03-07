@@ -19,9 +19,8 @@ router.get('/users/:id', getUserById);
 router.get('/logout', logout);
 
 
-
 // A partir d'ici toutes les routes nécessitent d'être admin
-// router.use(checkAdmin));
+router.use(checkAdmin);
 router.post('/updateUser',validateBody, updateUser);
 router.post('/users',validateBody, addUser);
 router.delete('/users/:id', deleteUser);
