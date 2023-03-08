@@ -17,8 +17,7 @@ export async function  uploadProfil  (req, res) {
         req.file.mimetype != "image/jpg" &&
         req.file.mimetype != "image/png" &&
         req.file.mimetype != "image/jpeg"
-      )
-      throw Error("invalid file");
+      ) throw Error("invalid file");
 
       if (req.file.size > 500000) throw Error("max size");
     } catch (err) {
