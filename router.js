@@ -4,9 +4,9 @@ import {addUser, updateUser, getUser, randomUser, deleteUser, getUserById} from 
 import {logged, checkAdmin} from "./middleware.js";
 import {validateBody} from "./middleware.js";
 import {addPost, getPostSix,deletePost,getPostAll, updatePost,getPostById} from './controllers/PostController.js'
-import {uploadProfil} from './controllers/UploadController.js'
-// import {multer} from 'multer';
-// const upload = multer();
+import {uploadImgPost} from './controllers/UploadController.js'
+import  multer  from "multer";
+const upload = multer();
 
 const router = express.Router();
 
@@ -28,7 +28,7 @@ router.post('/posts/add',addPost)
 router.post('/updatePost/:id', updatePost);
 router.delete('/posts/:id', deletePost);
 
-// router.post("app/upload", upload.single("file"), uploadProfil);
+router.post("/upload", upload.single("file"), uploadImgPost);
 // A partir d'ici toutes les routes nécessitent d'être admin
 // router.use(checkAdmin));
 router.post('/updateUser',validateBody, updateUser);

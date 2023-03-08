@@ -53,7 +53,7 @@ export async function deletePost(req, res){
 
 export async function updatePost(req,res){
     const post=await PostModel.findOne({_id:req.params.id});
-    console.log(PostModel.id)
+    
     if (!req.authUser._id  !== !post.owner_id)
         return res.json({"message":"Vous n'avez pas les droits pour modifier cet utilisateur"});
         const update = {

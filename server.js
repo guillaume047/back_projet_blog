@@ -8,11 +8,24 @@ import MongoStore from 'connect-mongo';
 import mongoose from "mongoose";
 import localtunnel from "localtunnel";
 import cors from "cors"
+// import  multer  from "multer";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const absolutePublicPath = path.join(__dirname, 'public');
 dotenv.config();
 const app = express();
+
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, "upload");
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.originalname);
+//     },
+//   });
+
+//   const upload = multer({ storage: storage });
+
 app.use(cors());
 
 app.use(function (req, res, next) {
