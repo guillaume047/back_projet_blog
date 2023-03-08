@@ -35,6 +35,12 @@ export async function getPostById(req,res){
 
 export async function getPostSix(req,res){
     const posts = await PostModel.aggregate([
+        {$lookup: {
+            from: "comments", // collection name in db
+            localField: "_id",
+            foreignField: "post_id",
+            as: "comment"
+        } },
         { $sort : { createdAt : 1 } },
         { $limit:  6  }
     ]);

@@ -12,7 +12,12 @@ const PostSchema = new Schema(
         type:mongoose.Schema.Types.ObjectId,
         required:true,
         ref:'User'
-    }
+    },
+//    tag:{
+//         [{type:mongoose.Schema.Types.ObjectId,
+//         required:true,
+//         ref:'Tag'}]
+//     }
     } ,  
      {
         timestamps: true

@@ -5,7 +5,7 @@ import {logged, checkAdmin} from "./middleware.js";
 import {validateBody} from "./middleware.js";
 import {addPost, getPostSix,deletePost,getPostAll, updatePost,getPostById} from './controllers/PostController.js'
 import {uploadImgPost} from './controllers/UploadController.js'
-import {addComment} from './controllers/CommentController.js'
+import {addComment, countComment} from './controllers/CommentController.js'
 import {addTag} from './controllers/TagController.js'
 import  multer  from "multer";
 const upload = multer();
@@ -32,7 +32,7 @@ router.delete('/posts/:id', deletePost);
 router.post("/upload", upload.single("file"), uploadImgPost);
 
 router.post('/comments/add',addComment)
-
+router.post('/comments/count',countComment)
 router.post('/tag/add',addTag)
 // A partir d'ici toutes les routes nécessitent d'être admin
 // router.use(checkAdmin));
