@@ -34,7 +34,7 @@ export async function uploadImgPost(req, res) {
     await PostModel.findByIdAndUpdate(
       req.body.postId,
      
-      { $set: { image: "uploads/post/" + req.file.originalname } },
+      { $set: { image: "post/" + req.file.originalname } },
       console.log(req.body.postId),
       // { new: true, upsert: true, setDefaultsOnInsert: true }
     )
