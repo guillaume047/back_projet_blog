@@ -9,8 +9,8 @@ import { PostModel } from "../models/post.js";
 export async function uploadImgPost(req, res) {
   // console.log(req.file);
   //renome le fichier avec extension .jpg
-  const fileName = req.body.name + ".jpg";
   try {
+   
     if (
       req.file.mimetype != "image/jpg" &&
       req.file.mimetype != "image/png" &&
@@ -26,7 +26,7 @@ export async function uploadImgPost(req, res) {
   try {
     await sharp(req.file.buffer)
       .resize({ width: 150, height: 150 })
-      .toFile(`uploads/post/${fileName}`);
+      .toFile(`uploads/post/${req.file.originalname}`);
    
   } catch (err) {
     
@@ -36,7 +36,7 @@ export async function uploadImgPost(req, res) {
     await PostModel.findByIdAndUpdate(
       req.body.postId,
      
-      { $set: { image: "uploads/post/" + fileName } },
+      { $set: { image: "uploads/post/" + req.file.originalname } },
       console.log(req.body.postId),
       // { new: true, upsert: true, setDefaultsOnInsert: true }
     )
