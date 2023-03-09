@@ -13,7 +13,11 @@ const UserSchema = new Schema({
     photo:String,
     category:String,
     isAdmin:Boolean,
-
+    favorites:[{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'Post'}
+    ],
 });
 
 export const UserModel = model("User", UserSchema);

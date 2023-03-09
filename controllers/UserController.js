@@ -1,6 +1,7 @@
 import {UserModel} from "../models/user.js";
 import jwt from "jsonwebtoken";
 import {hashPassword, manipulateDate} from "../utils/utils.js";
+import { PostModel } from "../models/post.js";
 
 export async function getUser(req,res){
     const users = await UserModel.find({});
@@ -39,6 +40,7 @@ export async function updateUser(req,res){
             phone: req.body.phone,
             photo: req.body.photo,
             birthdate: req.body.birthdate,
+            favorite: [],
             isAdmin: req.body.isAdmin
             
           };
@@ -90,4 +92,26 @@ export async function addUser(req, res){
         return res.status(500).send({"message" : "Erreur lors de l'ajout de l'utilisateur"});
     return res.status(200).json({"message" : "Utilisateur créer"});
 
+}
+
+export async function addUserFavorite(req, res){
+  
+    const post = await PostModel.findOne({ _id: req.params.id });
+
+    if (!req.authUser._id !== !post.owner_id)
+      return res.json({
+        message: "Vous n'avez pas les droits pour modifier cet utilisateur",
+      });
+    const update = {
+      title: req.body.title,
+      content: req.body.content,
+      image: req.body.image,
+      tag: req.body.tag,
+    };
+    const result = await PostModel.updateOne(
+      { _id: req.params.id },
+      { $set: update }
+    );
+  
+    return res.status(200).json({ message: "Update effectuée" });
 }

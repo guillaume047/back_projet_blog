@@ -26,7 +26,7 @@ export async function uploadImgPost(req, res) {
   try {
     await sharp(req.file.buffer)
       .resize({ width: 150, height: 150 })
-      .toFile(`./uploads/post/${fileName}`);
+      .toFile(`uploads/post/${fileName}`);
    
   } catch (err) {
     
@@ -36,7 +36,7 @@ export async function uploadImgPost(req, res) {
     await PostModel.findByIdAndUpdate(
       req.body.postId,
      
-      { $set: { image: "./uploads/profil/" + fileName } },
+      { $set: { image: "uploads/post/" + fileName } },
       console.log(req.body.postId),
       // { new: true, upsert: true, setDefaultsOnInsert: true }
     )
