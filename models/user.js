@@ -13,6 +13,7 @@ const UserSchema = new Schema({
     photo:String,
     category:String,
     isAdmin:Boolean,
+
 });
 
 export const UserModel = model("User", UserSchema);

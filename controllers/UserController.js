@@ -40,6 +40,7 @@ export async function updateUser(req,res){
             photo: req.body.photo,
             birthdate: req.body.birthdate,
             isAdmin: req.body.isAdmin
+            
           };
         
         if (req.body.password && req.body.password.trim().length > 0) {

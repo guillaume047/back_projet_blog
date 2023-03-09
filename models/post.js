@@ -7,18 +7,29 @@ const PostSchema = new Schema(
     title: String,
     content: String,
     image: String,
-    likeCount: Number,
     owner_id:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
         ref:'User'
     },
+    tag:[{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'Tag'}
+    ],
+    like:[{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'User'}
+    ]
+    },
+    
 //    tag:{
 //         [{type:mongoose.Schema.Types.ObjectId,
 //         required:true,
 //         ref:'Tag'}]
 //     }
-    } ,  
+    
      {
         timestamps: true
      }
