@@ -51,7 +51,7 @@ export async function getPostSix(req,res){
             from: "comments", // collection name in db
             localField: "_id",
             foreignField: "post_id",
-            as: "comment"
+            as: "comments"
         } },
         { $sort : { createdAt : 1 } },
         { $limit:  6  }
