@@ -4,7 +4,7 @@ export async function addTag(req, res){
    
     const result = await TagModel.insertMany(
         {
-            tag: req.body.tag,
+            tags: req.body.tags,
         });
 
     if (!result)

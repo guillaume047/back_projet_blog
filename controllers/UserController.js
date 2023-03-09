@@ -106,7 +106,7 @@ export async function addUserFavorite(req, res){
       title: req.body.title,
       content: req.body.content,
       image: req.body.image,
-      tag: req.body.tag,
+      tags: req.body.tags,
     };
     const result = await PostModel.updateOne(
       { _id: req.params.id },

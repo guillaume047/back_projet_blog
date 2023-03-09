@@ -7,10 +7,8 @@ import sharp from "sharp";
 import { PostModel } from "../models/post.js";
 
 export async function uploadImgPost(req, res) {
-  // console.log(req.file);
-  //renome le fichier avec extension .jpg
+  console.log(req.file);
   try {
-   
     if (
       req.file.mimetype != "image/jpg" &&
       req.file.mimetype != "image/png" &&

@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.post('/login', login);
  // A partir d'ici toutes les routes nécessitent d'être connectés a l'appli
-router.use(logged);
+// router.use(logged);
 
 router.get('/randomUser',randomUser);
 

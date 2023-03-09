@@ -27,13 +27,13 @@ const app = express();
 //   const upload = multer({ storage: storage });
 
 app.use(cors());
+app.use(express.static("uploads"));
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
   });
-app.use(express.static(absolutePublicPath));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
