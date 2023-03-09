@@ -6,7 +6,11 @@ const PostSchema = new Schema(
     
     title: String,
     content: String,
-    image: String,
+    image: 
+    {
+        type:String,
+        default:"uploads/post/",
+    },
     owner_id:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,

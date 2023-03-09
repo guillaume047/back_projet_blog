@@ -1,6 +1,6 @@
 import express from "express";
 import { login, logout} from "./controllers/AuthController.js";
-import {addUser, updateUser, getUser, randomUser, deleteUser, getUserById} from "./controllers/UserController.js";
+import {addUser, updateUser, getUser, randomUser, deleteUser, getUserById,addUserFavorite} from "./controllers/UserController.js";
 import {logged, checkAdmin} from "./middleware.js";
 import {validateBody} from "./middleware.js";
 import {addPost, getPostSix,deletePost,getPostAll, updatePost,getPostById,likePost} from './controllers/PostController.js'
@@ -32,7 +32,8 @@ router.delete('/posts/:id', deletePost);
 router.post("/upload", upload.single("file"), uploadImgPost);
 router.post("/like-post/:id", likePost);
 // router.post("/unlike-post/:id", );
-
+router.post('/Favorites', addUserFavorite);
+addUserFavorite
 router.post('/comments/add',addComment)
 router.post('/comments/count',countComment)
 router.post('/tag/add',addTag)

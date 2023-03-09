@@ -96,20 +96,14 @@ export async function addUser(req, res){
 
 export async function addUserFavorite(req, res){
   
-    const post = await PostModel.findOne({ _id: req.params.id });
-
-    if (!req.authUser._id !== !post.owner_id)
-      return res.json({
-        message: "Vous n'avez pas les droits pour modifier cet utilisateur",
-      });
+    const post = await PostModel.findOne({ _id: req.body.id });
+    console.log(post)
     const update = {
-      title: req.body.title,
-      content: req.body.content,
-      image: req.body.image,
-      tag: req.body.tag,
+      favorites: post,
+    
     };
-    const result = await PostModel.updateOne(
-      { _id: req.params.id },
+    const result = await UserModel.updateOne(
+      { _id: req.authUser.id },
       { $set: update }
     );
   
