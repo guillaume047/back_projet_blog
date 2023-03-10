@@ -144,23 +144,26 @@ export async function showFavorite(req, res){
             from: "posts", // collection name in db
             localField: "favorites",
             foreignField: "_id",
+            pipeline: [
+                  {
+                      $lookup: {
+                          from: "tags", // collection name in db
+                          localField: "tags",
+                          foreignField: "_id",
+                          as: "tags"
+                      }
+                  }
+              ],
             as: "favorites"
           }
         },
-        // {$unwind: "$favorites"},
-        {
-            $lookup: {
-              from: "tags", // collection name in db
-              localField: "favorites.tag",
-              foreignField: "_id",
-              as: "tag"
-            }
-            
-          },
       ]);
-      console.log( req.authUser.id )
-      if (!users) {
+
+
+    console.log(users[0])
+    if (!users) {
         return res.status(404).json({ message: "Ce post n'existe pas" });
       }
-      return res.status(200).json(users[0]);
+
+      return res.status(200).json(users[0].favorites);
 }
