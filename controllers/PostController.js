@@ -58,7 +58,7 @@ export async function getPostSix(req, res) {
     { $sort: { createdAt: -1 } },
     { $limit: 6 },
   ]);
-  
+
   if (!posts) {
     return res.status(404).json({ message: "Ce post n'existe pas" });
   }

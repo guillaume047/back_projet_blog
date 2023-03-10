@@ -114,7 +114,6 @@ export async function addUserFavorite(req, res){
     // console.log(post)
     const update = {
       favorites:  req.params.id,
-    
     };
     const result = await UserModel.updateOne(
       { _id: req.authUser.id },
