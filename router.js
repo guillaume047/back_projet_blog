@@ -1,6 +1,6 @@
 import express from "express";
 import { login, logout} from "./controllers/AuthController.js";
-import {addUser, updateUser, getUser, randomUser, deleteUser, getUserById,addUserFavorite, showFavorite} from "./controllers/UserController.js";
+import {addUser, updateUser, getUser, randomUser, deleteUser, getUserById,addUserFavorite, showFavorite, supUserFavorite} from "./controllers/UserController.js";
 import {logged, checkAdmin} from "./middleware.js";
 import {validateBody} from "./middleware.js";
 import {addPost, getPostSix,deletePost,getPostAll, updatePost,getPostById,likePost} from './controllers/PostController.js'
@@ -33,7 +33,8 @@ router.post("/upload", upload.single("file"), uploadImgPost);
 router.post("/like-post/:id", likePost);
 // router.post("/unlike-post/:id", );
 router.post('/add-favorite/:id', addUserFavorite);
-router.get('/Favorites', showFavorite);
+router.post('/delete-favorite/:id', supUserFavorite);
+router.post('/Favorites', showFavorite);
 
 router.post('/comments/add',addComment)
 router.post('/comments/count',countComment)

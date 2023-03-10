@@ -93,7 +93,21 @@ export async function addUser(req, res){
     return res.status(200).json({"message" : "Utilisateur créer"});
 
 }
-
+export async function supUserFavorite(req, res){
+  
+    // const post = await PostModel.findOne({ _id: req.params.id });
+    // console.log(post)
+    const update = {
+      favorites:  req.params.id,
+    
+    };
+    const result = await UserModel.updateOne(
+      { _id: req.authUser.id },
+      { $pull: update }
+    );
+  
+    return res.status(200).json({ message: "Update effectuée" });
+}
 export async function addUserFavorite(req, res){
   
     // const post = await PostModel.findOne({ _id: req.params.id });
