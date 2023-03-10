@@ -6,7 +6,7 @@ export async function addPost(req, res) {
     title: req.body.title,
     content: req.body.content,
     image: null,
-    likeCount: req.body.likeCount,
+    likeCount: 0,
     owner_id: req.authUser._id,
     tags: req.body.tags,
     like: [],
