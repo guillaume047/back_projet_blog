@@ -27,13 +27,6 @@ const PostSchema = new Schema(
         ref:'User'}
     ]
     },
-    
-//    tag:{
-//         [{type:mongoose.Schema.Types.ObjectId,
-//         required:true,
-//         ref:'Tag'}]
-//     }
-    
      {
         timestamps: true
      }

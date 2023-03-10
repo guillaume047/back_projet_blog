@@ -9,7 +9,7 @@ export async function addPost(req, res) {
     image: null,
     likeCount: 0,
     owner_id: req.authUser._id,
-    tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
+    tags: req.body.tags,
     like: [],
   });
   console.log(result)
@@ -39,12 +39,14 @@ export async function getPostById(req, res) {
 
 export async function getPostSix(req, res) {
   const posts = await PostModel.aggregate([
-    // {$lookup: {
-    //     from: "tags", // collection name in db
-    //     localField: "tag",
-    //     foreignField: "_id",
-    //     as: "tag"
-    // } },
+    {
+      $lookup: {
+        from: "tags", // collection name in db
+        localField: "tags",
+        foreignField: "_id",
+        as: "tags"
+      }
+    },
     {
       $lookup: {
         from: "comments", // collection name in db
@@ -56,6 +58,7 @@ export async function getPostSix(req, res) {
     { $sort: { createdAt: -1 } },
     { $limit: 6 },
   ]);
+  
   if (!posts) {
     return res.status(404).json({ message: "Ce post n'existe pas" });
   }
