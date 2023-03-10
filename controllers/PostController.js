@@ -1,5 +1,6 @@
 import { PostModel } from "../models/post.js";
 import mongoose from "mongoose";
+import {TagModel} from "../models/tag.js";
 
 export async function addPost(req, res) {
   const result = await PostModel.insertMany({
@@ -8,7 +9,7 @@ export async function addPost(req, res) {
     image: null,
     likeCount: 0,
     owner_id: req.authUser._id,
-    tags: req.body.tags,
+    tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
     like: [],
   });
   console.log(result)
@@ -18,7 +19,7 @@ export async function addPost(req, res) {
 }
 
 export async function getPostAll(req, res) {
-  const posts = await PostModel.find({});
+  const posts = await PostModel.find({}).sort({ createdAt: -1 }).populate("tags");
 
   if (!posts) {
     return res.status(404).json({ message: "Ce post n'existe pas" });
@@ -58,7 +59,6 @@ export async function getPostSix(req, res) {
   if (!posts) {
     return res.status(404).json({ message: "Ce post n'existe pas" });
   }
-  console.log(posts.like)
   return res.status(200).json(posts);
 }
 
