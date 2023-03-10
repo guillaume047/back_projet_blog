@@ -16,7 +16,7 @@ const PostSchema = new Schema(
         required:true,
         ref:'User'
     },
-    tag:[{
+    tags:[{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
         ref:'Tag'}

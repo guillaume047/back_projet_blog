@@ -109,3 +109,19 @@ export async function addUserFavorite(req, res){
   
     return res.status(200).json({ message: "Update effectuée" });
 }
+
+export async function showFavorite(req, res){
+  
+    const user = await UserModel.findOne({ _id: req.body.id });
+    console.log(user)
+    const update = {
+      favorites: post,
+    
+    };
+    const result = await UserModel.updateOne(
+      { _id: req.authUser.id },
+      { $set: update }
+    );
+  
+    return res.status(200).json({ message: "Update effectuée" });
+}

@@ -5,10 +5,10 @@ export async function addPost(req, res) {
   const result = await PostModel.insertMany({
     title: req.body.title,
     content: req.body.content,
-    image: req.body.image,
+    image: null,
     likeCount: req.body.likeCount,
     owner_id: req.authUser._id,
-    tag: req.body.tag,
+    tags: req.body.tags,
     like: [],
   });
   console.log(result)
@@ -52,12 +52,13 @@ export async function getPostSix(req, res) {
         as: "comments",
       },
     },
-    { $sort: { createdAt: 1 } },
+    { $sort: { createdAt: -1 } },
     { $limit: 6 },
   ]);
   if (!posts) {
     return res.status(404).json({ message: "Ce post n'existe pas" });
   }
+  console.log(posts.like)
   return res.status(200).json(posts);
 }
 
@@ -77,7 +78,7 @@ export async function updatePost(req, res) {
     title: req.body.title,
     content: req.body.content,
     image: req.body.image,
-    tag: req.body.tag,
+    tags: req.body.tags,
   };
   const result = await PostModel.updateOne(
     { _id: req.params.id },
@@ -92,11 +93,15 @@ export async function likePost(req, res) {
   const post = await PostModel.findOne({ _id: req.params.id });
   console.log(post.like.includes(req.authUser._id));
   console.log(req.authUser._id);
+ 
+
   if (post.like.includes(req.authUser._id)) {
     const update = {
-      $pull: { likers: post.like.includes(req.authUser._id) },
+      $pull: post.like.find((id)=> id.equals(req.authUser._id)) ,
+ 
+    
     };
-
+    console.log(update)
     const result = await PostModel.updateOne(
       { _id: req.params.id },
       { $set: update }
