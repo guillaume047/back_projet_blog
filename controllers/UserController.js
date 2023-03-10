@@ -124,14 +124,34 @@ export async function addUserFavorite(req, res){
     return res.status(200).json({ message: "Update effectuée" });
 }
 
-export async function showFavorite(req, res){
-    let posts = []
-    const user = await UserModel.findOne({ _id: req.authUser.id });
-    for(let i = 0; i < user.favorites.length; i = i + 1) { 
-     posts[i] = await PostModel.find({
-        _id: user.favorites[i]
+// export async function showFavorite(req, res){
+//     let posts = []
+//     const user = await UserModel.findOne({ _id: req.authUser.id });
+//     for(let i = 0; i < user.favorites.length; i = i + 1) { 
+//      posts[i] = await PostModel.find({
+//         _id: user.favorites[i]
         
-    });
-}
-    return res.status(200).json(posts);
+//     });
+// }
+//     return res.status(200).json(posts);
+// }
+
+export async function showFavorite(req, res){
+    const users = await UserModel.aggregate([
+      
+        { $match: { _id:req.authUser._id }},
+        {
+          $lookup: {
+            from: "posts", // collection name in db
+            localField: "favorites",
+            foreignField: "_id",
+            as: "favorites"
+          }
+        },
+      ]);
+      console.log( req.authUser.id )
+      if (!users) {
+        return res.status(404).json({ message: "Ce post n'existe pas" });
+      }
+      return res.status(200).json(users[0].favorites);
 }
