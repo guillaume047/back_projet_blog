@@ -33,7 +33,7 @@ router.post("/upload", upload.single("file"), uploadImgPost);
 router.post("/like-post/:id", likePost);
 // router.post("/unlike-post/:id", );
 router.post('/add-favorite/:id', addUserFavorite);
-router.post('/Favorites', showFavorite);
+router.get('/Favorites', showFavorite);
 
 router.post('/comments/add',addComment)
 router.post('/comments/count',countComment)
