@@ -147,10 +147,20 @@ export async function showFavorite(req, res){
             as: "favorites"
           }
         },
+        // {$unwind: "$favorites"},
+        {
+            $lookup: {
+              from: "tags", // collection name in db
+              localField: "favorites.tag",
+              foreignField: "_id",
+              as: "tag"
+            }
+            
+          },
       ]);
       console.log( req.authUser.id )
       if (!users) {
         return res.status(404).json({ message: "Ce post n'existe pas" });
       }
-      return res.status(200).json(users[0].favorites);
+      return res.status(200).json(users[0]);
 }
