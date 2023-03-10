@@ -96,32 +96,28 @@ export async function addUser(req, res){
 
 export async function addUserFavorite(req, res){
   
-    const post = await PostModel.findOne({ _id: req.body.id });
-    console.log(post)
+    // const post = await PostModel.findOne({ _id: req.params.id });
+    // console.log(post)
     const update = {
-      favorites: post,
+      favorites:  req.params.id,
     
     };
     const result = await UserModel.updateOne(
       { _id: req.authUser.id },
-      { $set: update }
+      { $push: update }
     );
   
     return res.status(200).json({ message: "Update effectuée" });
 }
 
 export async function showFavorite(req, res){
-  
-    const user = await UserModel.findOne({ _id: req.body.id });
-    console.log(user)
-    const update = {
-      favorites: post,
-    
-    };
-    const result = await UserModel.updateOne(
-      { _id: req.authUser.id },
-      { $set: update }
-    );
-  
-    return res.status(200).json({ message: "Update effectuée" });
+    let posts = []
+    const user = await UserModel.findOne({ _id: req.authUser.id });
+    for(let i = 0; i < user.favorites.length; i = i + 1) { 
+     posts[i] = await PostModel.find({
+        _id: user.favorites[i]
+        
+    });
+}
+    return res.status(200).json(posts);
 }

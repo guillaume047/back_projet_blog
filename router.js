@@ -32,7 +32,7 @@ router.delete('/posts/:id', deletePost);
 router.post("/upload", upload.single("file"), uploadImgPost);
 router.post("/like-post/:id", likePost);
 // router.post("/unlike-post/:id", );
-router.post('/Favorites/add', addUserFavorite);
+router.post('/add-favorite/:id', addUserFavorite);
 router.post('/Favorites', showFavorite);
 
 router.post('/comments/add',addComment)

@@ -91,7 +91,7 @@ export async function updatePost(req, res) {
 export async function likePost(req, res) {
   // const ObjectId = mongoose.Types.ObjectId(req.authUser._id);
   const post = await PostModel.findOne({ _id: req.params.id });
-  console.log(post.like.includes(req.authUser._id));
+  console.log(post.like.find((id)=> id.equals(req.authUser._id)));
   console.log(req.authUser._id);
  
 
