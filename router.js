@@ -34,7 +34,7 @@ router.post("/like-post/:id", likePost);
 // router.post("/unlike-post/:id", );
 router.post('/add-favorite/:id', addUserFavorite);
 router.post('/delete-favorite/:id', supUserFavorite);
-router.post('/Favorites', showFavorite);
+router.get('/Favorites', showFavorite);
 
 router.post('/comments/add',addComment)
 router.post('/comments/count',countComment)

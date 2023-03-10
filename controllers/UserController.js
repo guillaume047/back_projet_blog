@@ -114,7 +114,6 @@ export async function addUserFavorite(req, res){
     // console.log(post)
     const update = {
       favorites:  req.params.id,
-    
     };
     const result = await UserModel.updateOne(
       { _id: req.authUser.id },
@@ -127,10 +126,10 @@ export async function addUserFavorite(req, res){
 export async function showFavorite(req, res){
     let posts = []
     const user = await UserModel.findOne({ _id: req.authUser.id });
+
     for(let i = 0; i < user.favorites.length; i = i + 1) { 
      posts[i] = await PostModel.find({
         _id: user.favorites[i]
-        
     });
 }
     return res.status(200).json(posts);
